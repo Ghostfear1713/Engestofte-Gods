@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import AvailabilityChecker from './AvailabilityChecker'
 import styles from './Step2_EventDetails.module.css'
 
 const VENUE_INFO = {
@@ -87,6 +88,7 @@ function WeddingFields({ data, onChange, errors }) {
             onChange={(e) => onChange('date', e.target.value)}
             min={new Date().toISOString().split('T')[0]}
           />
+          <AvailabilityChecker date={data.date} onSelectDate={(d) => onChange('date', d)} />
         </Field>
 
         <Field label="Antal gæster" error={errors?.guests}>
@@ -163,6 +165,7 @@ function PartyFields({ data, onChange, errors }) {
           onChange={(e) => onChange('date', e.target.value)}
           min={new Date().toISOString().split('T')[0]}
         />
+        <AvailabilityChecker date={data.date} onSelectDate={(d) => onChange('date', d)} />
       </Field>
 
       <Field label="Antal gæster" error={errors?.guests}>
@@ -213,6 +216,7 @@ function ConferenceFields({ data, onChange, errors }) {
           onChange={(e) => onChange('date', e.target.value)}
           min={new Date().toISOString().split('T')[0]}
         />
+        <AvailabilityChecker date={data.date} onSelectDate={(d) => onChange('date', d)} />
       </Field>
 
       <Field label="Antal deltagere" error={errors?.guests}>

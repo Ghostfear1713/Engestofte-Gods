@@ -223,6 +223,91 @@ def admin_brief():
         return jsonify({'brief': fallback, 'ai': False})
 
 
+# ── Availability check ───────────────────────────────────────────────
+
+@app.route('/api/availability', methods=['GET'])
+def check_availability():
+    date = request.args.get('date', '').strip()
+    if not date:
+        return jsonify({'error': 'date parameter required'}), 400
+
+    # Find confirmed bookings on this exact date
+    confirmed = Inquiry.query.filter_by(status='bekræftet').all()
+    conflict = None
+    for inq in confirmed:
+        d = inq.details
+        if d.get('date') == date or d.get('arrival') == date:
+            conflict = inq
+            break
+
+    if not conflict:
+        return jsonify({'available': True, 'suggestions': []})
+
+    # Find 6 nearest free dates (±21 days) with no confirmed bookings
+    from datetime import date as date_type, timedelta
+    try:
+        base = date_type.fromisoformat(date)
+    except ValueError:
+        return jsonify({'error': 'Invalid date format'}), 400
+
+    taken_dates = set()
+    for inq in confirmed:
+        d = inq.details
+        for key in ('date', 'arrival'):
+            if d.get(key):
+                taken_dates.add(d[key])
+
+    suggestions = []
+    for delta in range(1, 22):
+        for direction in (-1, 1):
+            candidate = (base + timedelta(days=delta * direction)).isoformat()
+            if candidate not in taken_dates and candidate not in suggestions:
+                suggestions.append(candidate)
+            if len(suggestions) >= 3:
+                break
+        if len(suggestions) >= 3:
+            break
+
+    suggestions = sorted(suggestions)[:3]
+
+    # AI suggestion message (optional — graceful fallback)
+    ai_message = None
+    if os.getenv('GROQ_API_KEY') and os.getenv('GROQ_API_KEY') != 'PASTE_YOUR_GROQ_API_KEY_HERE':
+        try:
+            from groq import Groq
+            client = Groq(api_key=os.getenv('GROQ_API_KEY'))
+
+            # Format dates in Danish
+            def fmt(iso):
+                d = date_type.fromisoformat(iso)
+                months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec']
+                return f"{d.day}. {months[d.month-1]}"
+
+            alts = ', '.join(fmt(s) for s in suggestions)
+            resp = client.chat.completions.create(
+                model='llama-3.3-70b-versatile',
+                max_tokens=60,
+                temperature=0.8,
+                messages=[{
+                    'role': 'system',
+                    'content': 'Du skriver én kort, varm sætning på dansk (max 15 ord) der foreslår alternative datoer til et event på Engestofte Gods. Inkluder de alternative datoer.'
+                }, {
+                    'role': 'user',
+                    'content': f'Den valgte dato er optaget. Foreslå: {alts}'
+                }]
+            )
+            ai_message = resp.choices[0].message.content.strip()
+        except Exception:
+            pass
+
+    return jsonify({
+        'available': False,
+        'conflict_service': conflict.service,
+        'suggestions': suggestions,
+        'ai_message': ai_message,
+    })
+
+
 # ── Admin inquiry endpoints ───────────────────────────────────────────
 
 @app.route('/api/admin/inquiries', methods=['GET'])
