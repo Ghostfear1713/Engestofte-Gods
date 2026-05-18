@@ -130,6 +130,99 @@ def admin_login():
     return jsonify({'error': 'Forkert brugernavn eller adgangskode'}), 401
 
 
+# ── Admin daily brief ────────────────────────────────────────────────
+
+@app.route('/api/admin/brief', methods=['GET'])
+@jwt_required()
+def admin_brief():
+    """Generate an AI daily brief summarising current inquiry pipeline."""
+    if not os.getenv('GROQ_API_KEY') or os.getenv('GROQ_API_KEY') == 'PASTE_YOUR_GROQ_API_KEY_HERE':
+        return jsonify({'brief': 'God dag! Velkommen til administrationen.', 'ai': False})
+
+    from sqlalchemy import func as sqlfunc
+    from datetime import datetime, timezone, timedelta
+
+    total        = Inquiry.query.count()
+    ny           = Inquiry.query.filter_by(status='ny').count()
+    kontaktet    = Inquiry.query.filter_by(status='kontaktet').count()
+    bekraeftet   = Inquiry.query.filter_by(status='bekræftet').count()
+    annulleret   = Inquiry.query.filter_by(status='annulleret').count()
+
+    # Inquiries received in the last 24 hours
+    since        = datetime.now(timezone.utc) - timedelta(hours=24)
+    recent       = Inquiry.query.filter(Inquiry.created_at >= since).count()
+
+    # Next confirmed booking date
+    next_confirmed = (
+        Inquiry.query
+        .filter_by(status='bekræftet')
+        .filter(Inquiry.details_json.like('%"date"%'))
+        .order_by(Inquiry.created_at.asc())
+        .first()
+    )
+    next_date_text = ''
+    if next_confirmed:
+        d = next_confirmed.details.get('date', '')
+        if d:
+            next_date_text = f"Næste bekræftede arrangement: {d}."
+
+    # Service breakdown of pipeline (ny + kontaktet)
+    from email_service import SERVICE_LABELS
+    pipeline = Inquiry.query.filter(Inquiry.status.in_(['ny', 'kontaktet'])).all()
+    service_counts = {}
+    for inq in pipeline:
+        label = SERVICE_LABELS.get(inq.service, inq.service)
+        service_counts[label] = service_counts.get(label, 0) + 1
+
+    pipeline_text = ', '.join(f'{count} {label.lower()}' for label, count in service_counts.items())
+
+    # Build context for the AI
+    context = (
+        f"Statistik for Engestofte Gods forespørgselssystem:\n"
+        f"- Totalt: {total} forespørgsler\n"
+        f"- Nye (ubehandlede): {ny}\n"
+        f"- Kontaktet: {kontaktet}\n"
+        f"- Bekræftede: {bekraeftet}\n"
+        f"- Annullerede: {annulleret}\n"
+        f"- Modtaget seneste 24 timer: {recent}\n"
+        f"- I pipeline: {pipeline_text or 'ingen'}\n"
+        f"{next_date_text}"
+    )
+
+    try:
+        from groq import Groq
+        client = Groq(api_key=os.getenv('GROQ_API_KEY'))
+        response = client.chat.completions.create(
+            model='llama-3.3-70b-versatile',
+            max_tokens=120,
+            temperature=0.7,
+            messages=[
+                {
+                    'role': 'system',
+                    'content': (
+                        'Du er en hjælpsom assistent for personalet på Engestofte Gods. '
+                        'Skriv en kort, varm og personlig velkomst-besked på dansk (max 2-3 sætninger) '
+                        'baseret på systemstatistikken. Nævn de vigtigste tal. '
+                        'Vær positiv og imødekommende. Start IKKE med "God morgen" eller "God dag" — '
+                        'vær mere kreativ og personlig. Brug ikke emojis.'
+                    ),
+                },
+                {'role': 'user', 'content': context},
+            ],
+        )
+        brief = response.choices[0].message.content.strip()
+        return jsonify({'brief': brief, 'ai': True, 'stats': {
+            'total': total, 'ny': ny, 'kontaktet': kontaktet,
+            'bekræftet': bekraeftet, 'recent': recent,
+        }})
+    except Exception as e:
+        app.logger.error(f'Brief AI error: {e}')
+        fallback = f"Velkommen tilbage. Der er {ny} nye forespørgsler klar til behandling."
+        if recent:
+            fallback += f" {recent} er modtaget de seneste 24 timer."
+        return jsonify({'brief': fallback, 'ai': False})
+
+
 # ── Admin inquiry endpoints ───────────────────────────────────────────
 
 @app.route('/api/admin/inquiries', methods=['GET'])

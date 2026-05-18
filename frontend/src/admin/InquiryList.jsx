@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAdminAuth, API } from './useAdminAuth'
+import AdminBrief from './AdminBrief'
 import styles from './Admin.module.css'
 
 const STATUS_COLORS = {
@@ -76,6 +77,8 @@ export default function InquiryList() {
 
   return (
     <div className={styles.listPage}>
+      <AdminBrief />
+
       <div className={styles.listHeader}>
         <div>
           <h1 className={styles.pageTitle}>Forespørgsler</h1>
