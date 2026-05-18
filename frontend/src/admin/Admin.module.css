@@ -1,0 +1,554 @@
+/* ── Login ──────────────────────────────────────────────────────── */
+
+.loginPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #f2f5ef 0%, #fff 60%);
+  padding: 2rem 1rem;
+}
+
+.loginCard {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.09);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+}
+
+.loginLogo {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #1a1a18;
+  letter-spacing: 0.04em;
+}
+
+.loginSub {
+  font-size: 0.78rem;
+  color: #6b6b65;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.loginForm { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+
+.loginField { display: flex; flex-direction: column; gap: 0.4rem; }
+
+.loginField label { font-size: 0.82rem; font-weight: 500; color: #1a1a18; }
+
+.loginField input {
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid #d8d8d4;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.loginField input:focus { border-color: #3d5c2a; box-shadow: 0 0 0 3px rgba(61,92,42,0.1); }
+
+.loginError { font-size: 0.8rem; color: #c0392b; text-align: center; }
+
+.loginBtn {
+  background: #3d5c2a;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+  margin-top: 0.5rem;
+}
+
+.loginBtn:hover:not(:disabled) { background: #4e7336; }
+.loginBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Shell ──────────────────────────────────────────────────────── */
+
+.adminShell {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f4f0;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────────────── */
+
+.sidebar {
+  width: 220px;
+  background: #3d5c2a;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1rem;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebarLogo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  margin-bottom: 1.5rem;
+}
+
+.sidebarLogoText {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.05rem;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+.sidebarLogoSub {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sidebarNav { display: flex; flex-direction: column; gap: 0.25rem; flex: 1; }
+
+.navLink {
+  display: block;
+  padding: 0.6rem 0.85rem;
+  border-radius: 8px;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: all 0.15s;
+}
+
+.navLink:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+.navLinkActive { background: rgba(255,255,255,0.18) !important; color: #fff !important; font-weight: 600; }
+
+.logoutBtn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.65);
+  border-radius: 8px;
+  padding: 0.5rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.logoutBtn:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+
+/* ── Main content ──────────────────────────────────────────────── */
+
+.adminMain { flex: 1; overflow-y: auto; padding: 2rem; min-width: 0; }
+
+.loading, .empty {
+  text-align: center;
+  color: #6b6b65;
+  font-size: 0.9rem;
+  padding: 3rem;
+}
+
+/* ── Inquiry List ──────────────────────────────────────────────── */
+
+.listPage { max-width: 900px; }
+
+.listHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.pageTitle {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #1a1a18;
+  margin: 0 0 0.2rem;
+}
+
+.pageSub { font-size: 0.82rem; color: #6b6b65; }
+
+.newBadge {
+  display: inline-block;
+  background: #3d5c2a;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 100px;
+  padding: 0.1rem 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.refreshRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lastUpdated {
+  font-size: 0.72rem;
+  color: #9a9a94;
+}
+
+.refreshBtn {
+  background: none;
+  border: 1.5px solid #d8d8d4;
+  border-radius: 100px;
+  padding: 0.4rem 1rem;
+  font-size: 0.82rem;
+  color: #6b6b65;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.refreshBtn:hover { border-color: #b8cda8; color: #3d5c2a; }
+
+.filterTabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+  flex-wrap: wrap;
+}
+
+.filterTab {
+  background: #fff;
+  border: 1.5px solid #d8d8d4;
+  border-radius: 100px;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.78rem;
+  color: #6b6b65;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filterTab:hover { border-color: #b8cda8; color: #3d5c2a; }
+
+.filterTabActive {
+  background: #3d5c2a !important;
+  border-color: #3d5c2a !important;
+  color: #fff !important;
+  font-weight: 600;
+}
+
+.inquiryList { display: flex; flex-direction: column; gap: 0.6rem; }
+
+.inquiryCard {
+  background: #fff;
+  border: 1px solid #e8e8e4;
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.15s;
+  gap: 1rem;
+}
+
+.inquiryCard:hover {
+  border-color: #b8cda8;
+  box-shadow: 0 2px 12px rgba(61,92,42,0.08);
+  transform: translateY(-1px);
+}
+
+.inquiryCardLeft { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+
+.inquiryRef { font-size: 0.7rem; color: #6b6b65; font-family: monospace; }
+
+.inquiryName { font-size: 0.95rem; font-weight: 600; color: #1a1a18; }
+
+.inquiryService { font-size: 0.78rem; color: #6b6b65; }
+
+.inquiryCardRight {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.inquiryPrice { font-size: 0.82rem; color: #3d5c2a; font-weight: 500; white-space: nowrap; }
+
+.statusBadge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+  border-radius: 100px;
+  white-space: nowrap;
+  color: #1a1a18;
+}
+
+.inquiryDate { font-size: 0.75rem; color: #9a9a94; white-space: nowrap; }
+
+/* ── Inquiry Detail ────────────────────────────────────────────── */
+
+.detailPage { max-width: 1100px; }
+
+.detailHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.backBtn {
+  background: none;
+  border: 1.5px solid #d8d8d4;
+  border-radius: 100px;
+  padding: 0.4rem 1rem;
+  font-size: 0.8rem;
+  color: #6b6b65;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.backBtn:hover { border-color: #b8cda8; color: #3d5c2a; }
+
+.detailRef { font-size: 0.78rem; color: #6b6b65; font-family: monospace; }
+
+.statusPipeline { display: flex; gap: 0.4rem; margin-left: auto; flex-wrap: wrap; }
+
+.statusPipeBtn {
+  background: #fff;
+  border: 1.5px solid #d8d8d4;
+  border-radius: 100px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.78rem;
+  color: #6b6b65;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.statusPipeBtn:hover { border-color: #b8cda8; }
+
+.statusPipeBtnActive {
+  font-weight: 600;
+}
+
+.detailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.detailLeft, .detailRight { display: flex; flex-direction: column; gap: 1.2rem; }
+
+.detailSection {
+  background: #fff;
+  border: 1px solid #e8e8e4;
+  border-radius: 12px;
+  padding: 1.3rem 1.4rem;
+}
+
+.sectionTitle {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a18;
+  margin: 0 0 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid #f0f0ec;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-size: 0.84rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #f5f5f2;
+}
+
+.infoRow:last-child { border-bottom: none; }
+
+.infoLabel { color: #6b6b65; flex-shrink: 0; }
+
+.infoValue { font-weight: 500; color: #1a1a18; text-align: right; }
+.infoValue a { color: #3d5c2a; text-decoration: none; }
+.infoValue a:hover { text-decoration: underline; }
+
+.infoHighlight { color: #3d5c2a; font-weight: 700; }
+
+.customerMessage { margin-top: 0.75rem; }
+
+.messageText {
+  font-size: 0.85rem;
+  color: #3a3a36;
+  line-height: 1.6;
+  background: #f8f8f6;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-top: 0.35rem;
+  font-style: italic;
+}
+
+.notesArea {
+  width: 100%;
+  border: 1.5px solid #d8d8d4;
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.85rem;
+  color: #1a1a18;
+  resize: vertical;
+  outline: none;
+  font-family: inherit;
+  background: #f8f8f6;
+  transition: border-color 0.15s;
+}
+
+.notesArea:focus { border-color: #3d5c2a; background: #fff; }
+
+.saveNotesBtn {
+  margin-top: 0.5rem;
+  background: none;
+  border: 1.5px solid #d8d8d4;
+  border-radius: 100px;
+  padding: 0.4rem 1rem;
+  font-size: 0.78rem;
+  color: #6b6b65;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.saveNotesBtn:hover:not(:disabled) { border-color: #b8cda8; color: #3d5c2a; }
+
+.pdfBtn {
+  background: #fff;
+  border: 1.5px solid #3d5c2a;
+  border-radius: 100px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #3d5c2a;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.pdfBtn:hover:not(:disabled) { background: #f0f4ec; }
+.pdfBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── Snippet Composer ──────────────────────────────────────────── */
+
+.composeSection {
+  background: #fff;
+  border: 1px solid #e8e8e4;
+  border-radius: 12px;
+  padding: 1.3rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: sticky;
+  top: 1rem;
+}
+
+.snippetCategories { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.snippetCat { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.snippetCatLabel { font-size: 0.72rem; font-weight: 600; color: #6b6b65; text-transform: uppercase; letter-spacing: 0.06em; }
+
+.snippetBtns { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+.snippetBtn {
+  background: #f0f4ec;
+  border: 1px solid #b8cda8;
+  border-radius: 100px;
+  padding: 0.28rem 0.8rem;
+  font-size: 0.75rem;
+  color: #3d5c2a;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.snippetBtn:hover { background: #3d5c2a; color: #fff; border-color: #3d5c2a; }
+
+.composeField { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.composeLabel { font-size: 0.78rem; font-weight: 500; color: #1a1a18; }
+
+.composeSubject {
+  padding: 0.55rem 0.8rem;
+  border: 1.5px solid #d8d8d4;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.composeSubject:focus { border-color: #3d5c2a; }
+
+.composeBody {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border: 1.5px solid #d8d8d4;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #1a1a18;
+  resize: vertical;
+  outline: none;
+  font-family: inherit;
+  line-height: 1.6;
+  transition: border-color 0.15s;
+  min-height: 200px;
+}
+
+.composeBody:focus { border-color: #3d5c2a; }
+
+.composeActions { display: flex; gap: 0.6rem; justify-content: flex-end; }
+
+.clearBtn {
+  background: none;
+  border: 1.5px solid #d8d8d4;
+  border-radius: 100px;
+  padding: 0.5rem 1rem;
+  font-size: 0.82rem;
+  color: #6b6b65;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.clearBtn:hover:not(:disabled) { border-color: #c0392b; color: #c0392b; }
+.clearBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.sendBtn {
+  background: #3d5c2a;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 0.55rem 1.4rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.sendBtn:hover:not(:disabled) { background: #4e7336; }
+.sendBtn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.sendResult {
+  text-align: center;
+  font-size: 0.82rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.sendOk { background: #e8f5e9; color: #2e7d32; }
+.sendError { background: #fce4ec; color: #c62828; }
+
+@media (max-width: 900px) {
+  .detailGrid { grid-template-columns: 1fr; }
+  .composeSection { position: static; }
+}

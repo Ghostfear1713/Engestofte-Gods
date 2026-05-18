@@ -1,0 +1,227 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header {
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+
+.sub {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* Price card */
+.priceCard {
+  background: var(--primary-light);
+  border: 1.5px solid var(--primary-border);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.8rem;
+}
+
+.totalRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.fromLabel {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  font-family: var(--font-serif);
+}
+
+.totalAmount {
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  font-weight: 500;
+  color: var(--primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.noGuests {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-top: 0.5rem;
+}
+
+.breakdownRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.breakdownLabel {
+  flex: 1;
+}
+
+.breakdownAmount {
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.breakdownDivider {
+  height: 1px;
+  background: var(--primary-border);
+  margin: 0.4rem 0;
+}
+
+.breakdownTotal {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+.pkgNote {
+  margin-top: 0.8rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Price on request */
+.porCard {
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 2rem 1.8rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.porEmoji {
+  font-size: 2.5rem;
+}
+
+.porTitle {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text);
+}
+
+.porText {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  max-width: 380px;
+  line-height: 1.6;
+}
+
+/* Disclaimer */
+.disclaimer {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.9rem 1rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.disclaimerIcon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* Staff card */
+.staffCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border: 1.5px solid var(--primary-border);
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+
+.staffAvatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+
+.staffInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.staffName {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.staffRole {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.staffEmail {
+  font-size: 0.8rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.staffEmail:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 500px) {
+  .totalAmount {
+    font-size: 2.2rem;
+  }
+
+  .priceCard,
+  .porCard {
+    padding: 1.4rem 1.2rem;
+  }
+}

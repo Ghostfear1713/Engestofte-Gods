@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Engestofte Gods — Mockup (Forespørgsel CTA)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #3d5c2a;
+      --green-dark: #2a3f1c;
+      --white: #ffffff;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', Helvetica, sans-serif;
+    }
+    body { font-family: var(--sans); background: #f5f4f0; }
+
+    /* ── TOP HEADER ── */
+    .top-header {
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 60px;
+    }
+    .logo img { height: 44px; }
+    .top-right { display: flex; gap: 0.75rem; align-items: center; }
+    .top-btn {
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.55);
+      padding: 0.35rem 1rem;
+      font-size: 0.72rem;
+      font-family: var(--sans);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.15s;
+    }
+    .top-btn:hover { background: rgba(255,255,255,0.12); border-color: white; }
+    .top-btn.accent {
+      background: rgba(255,255,255,0.15);
+      border-color: white;
+    }
+
+    /* ── MAIN NAV ── */
+    .main-nav {
+      background: var(--white);
+      border-bottom: 1px solid #e5e3dd;
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      padding: 0;
+      height: 48px;
+      align-items: center;
+    }
+    .main-nav a {
+      font-size: 0.78rem;
+      font-family: var(--sans);
+      letter-spacing: 0.06em;
+      color: #2a2a26;
+      text-decoration: none;
+      text-transform: uppercase;
+      padding: 0.25rem 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .main-nav a:hover { border-color: var(--green); color: var(--green); }
+
+    /* ── HERO ── */
+    .hero {
+      background:
+        linear-gradient(160deg, rgba(35,50,22,0.78) 0%, rgba(45,65,28,0.65) 100%),
+        url('https://images.squarespace-cdn.com/content/v1/5bcd900cd86cc941819133c6/1539861989117-HTSJV85R5E9F2B6N6ZOU/Engestofte-bryllup.jpg') center/cover no-repeat;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+    }
+    /* Fallback solid if image fails to load */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #2a3f1c 0%, #3d5c2a 100%);
+      z-index: 0;
+    }
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.15;
+      max-width: 700px;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-sub {
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 560px;
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── THE NEW BUTTON ── */
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--white);
+      color: var(--green);
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2.2rem;
+      border-radius: 2px;
+      transition: all 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .hero-cta:hover {
+      background: #f0f4ec;
+      box-shadow: 0 6px 28px rgba(0,0,0,0.32);
+      transform: translateY(-1px);
+    }
+    .hero-cta svg { transition: transform 0.2s; }
+    .hero-cta:hover svg { transform: translateX(3px); }
+
+    /* Annotation bubble */
+    .annotation {
+      position: relative;
+      display: inline-block;
+    }
+    .annotation-label {
+      position: absolute;
+      left: 110%;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff3cd;
+      border: 1.5px solid #e6c200;
+      color: #7a5c00;
+      font-size: 0.72rem;
+      font-family: var(--sans);
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .annotation-label::before {
+      content: '←';
+      margin-right: 0.4rem;
+    }
+
+    /* ── BELOW HERO (content teaser) ── */
+    .content-strip {
+      background: var(--white);
+      padding: 3rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid #e5e3dd;
+    }
+    .deer { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.6; }
+    .content-strip h2 {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 400;
+      color: #1a1a18;
+      margin-bottom: 0.5rem;
+    }
+    .content-strip p {
+      font-size: 0.88rem;
+      color: #6b6b65;
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── SERVICE CARDS ROW ── */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .svc-card {
+      background: var(--green-dark);
+      height: 200px;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .svc-card:nth-child(2) { background: #1e2c14; }
+    .svc-card:nth-child(3) { background: #2d4020; }
+    .svc-card span {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      color: var(--white);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ── MOCKUP NOTICE ── */
+    .notice {
+      background: #1a1a18;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      font-size: 0.72rem;
+      font-family: var(--sans);
+      letter-spacing: 0.06em;
+      padding: 0.6rem;
+    }
+    .notice strong { color: #f0f4ec; }
+
+    @media (max-width: 640px) {
+      .top-header { padding: 0 1rem; }
+      .main-nav { gap: 1.2rem; overflow-x: auto; padding: 0 1rem; justify-content: flex-start; }
+      .services { grid-template-columns: 1fr; }
+      .annotation-label { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="notice">
+    <strong>MOCKUP</strong> — Dette er en visuel demonstration af "Start forespørgsel" CTA'en på Engestoftes forside. Knappen linker til forespørgselsformularen.
+  </div>
+
+  <!-- Top header -->
+  <header class="top-header">
+    <div class="logo">
+      <img src="https://images.squarespace-cdn.com/content/v1/5bcd900cd86cc941819133c6/1553680645240-NJP9IWWHOOJRNKKJA8CL/engestofte-gods-logo-white.png"
+           alt="Engestofte Gods"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" />
+      <span style="display:none; font-family:'Cormorant Garamond',serif; color:#fff; font-size:1.2rem; font-weight:400; letter-spacing:0.06em;">Engestofte Gods</span>
+    </div>
+    <div class="top-right">
+      <a href="#" class="top-btn">Restaurant Værkstedet</a>
+      <a href="#" class="top-btn">Kontakt</a>
+    </div>
+  </header>
+
+  <!-- Main nav -->
+  <nav class="main-nav">
+    <a href="#">Julemarked</a>
+    <a href="#">Sommerhuse</a>
+    <a href="#">Bryllup</a>
+    <a href="#">Fest</a>
+    <a href="#">Konference</a>
+    <a href="#">Jagt</a>
+    <a href="#">Om Engestofte</a>
+  </nav>
+
+  <!-- Hero with the new CTA -->
+  <section class="hero">
+    <p class="hero-eyebrow">Engestofte Gods · Maribo, Danmark</p>
+    <h1 class="hero-title">En historisk perle ved bredden af Maribo Søndersø</h1>
+    <p class="hero-sub">
+      Engestofte Gods byder på alt fra bryllupper, fester, konferencer,
+      jagt, events og overnatninger.
+    </p>
+
+    <!-- ★ THE NEW BUTTON ★ -->
+    <div class="annotation">
+      <a href="http://localhost:5173" class="hero-cta">
+        Start forespørgsel
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="annotation-label">Ny knap — linker til formularen</div>
+    </div>
+  </section>
+
+  <!-- Content teaser -->
+  <section class="content-strip">
+    <div class="deer">🦌</div>
+    <h2>Oplev Engestofte Gods</h2>
+    <p>En historisk og naturskøn ramme til jeres næste begivenhed — fra intime sammenkomster til store festligheder.</p>
+  </section>
+
+  <!-- Service cards row -->
+  <div class="services">
+    <div class="svc-card"><span>Bryllup</span></div>
+    <div class="svc-card"><span>Fest</span></div>
+    <div class="svc-card"><span>Sommerhuse</span></div>
+  </div>
+
+</body>
+</html>

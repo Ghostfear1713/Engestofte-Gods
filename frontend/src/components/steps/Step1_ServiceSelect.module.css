@@ -1,0 +1,201 @@
+.wrapper {
+  width: 100%;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 2.6rem;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.6rem;
+  line-height: 1.15;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  position: relative;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--white, #fff);
+  overflow: hidden;
+  text-align: left;
+  padding: 0;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow-card);
+  min-height: 170px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.cardSelected {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px var(--primary-border), var(--shadow-card-hover) !important;
+}
+
+.cardBg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  transition: opacity 0.2s;
+}
+
+.card:hover .cardBg,
+.cardSelected .cardBg {
+  opacity: 0.13;
+}
+
+.cardContent {
+  position: relative;
+  z-index: 1;
+  padding: 1.4rem 1.2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.emoji {
+  font-size: 1.6rem;
+  line-height: 1;
+  margin-bottom: 0.2rem;
+}
+
+.cardLabel {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.cardDesc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.cardNote {
+  font-style: italic;
+  color: var(--primary);
+  font-size: 0.79rem;
+}
+
+.staffBadge {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary-light);
+  border-top: 1px solid var(--primary-border);
+  padding: 0.55rem 1.2rem;
+  font-size: 0.78rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.staffDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  flex-shrink: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  z-index: 2;
+}
+
+/* "Noget andet?" card — spans full width, softer/dashed style */
+.cardOther {
+  grid-column: 1 / -1;
+  min-height: 100px;
+  border-style: dashed;
+  border-color: var(--border);
+  background: var(--surface);
+}
+
+.cardOther .cardContent {
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.4rem;
+}
+
+.cardOther .emoji {
+  font-size: 1.4rem;
+  margin-bottom: 0;
+}
+
+.cardOther .cardLabel {
+  font-size: 1.15rem;
+}
+
+.cardOther:hover {
+  border-color: var(--primary-border);
+  border-style: solid;
+}
+
+.cardSelected.cardOther {
+  border-style: solid;
+}
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .cardContent {
+    padding: 1rem 0.9rem 0.75rem;
+  }
+
+  .cardLabel {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

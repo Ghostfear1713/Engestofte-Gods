@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"c:\\\\Users\\\\Demo\\\\Documents\\\\Datamatiker\\\\AI case project\" -Recurse -Force)",
+      "Bash(Select-Object -Property FullName, Name, Extension)",
+      "Bash(Sort-Object FullName)",
+      "Bash(Format-Table -AutoSize)",
+      "WebFetch(domain:www.engestofte.com)",
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(pip --version)",
+      "Bash(pip install *)",
+      "Bash(mkdir components *)",
+      "Bash(mkdir components\\\\steps)",
+      "Bash(mkdir utils *)",
+      "Bash(pip freeze *)",
+      "Bash(findstr -i \"flask\\\\|dotenv\\\\|cors\\\\|mail\")",
+      "Bash(npm run *)",
+      "Bash(python -c \"import app; print\\('Flask app imports OK'\\)\")",
+      "Bash(python app.py)",
+      "Bash(curl -s http://127.0.0.1:5000/api/health)",
+      "Bash(python -c ' *)",
+      "Bash(taskkill /F /IM python.exe /T)"
+    ]
+  }
+}
